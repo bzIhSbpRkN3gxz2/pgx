@@ -19,3 +19,6 @@ require golang.org/x/sync v0.6.0 // indirect
 //   - Studying connection pool behavior (puddle v2) and how pgx manages
 //     idle connections under load.
 //   - TODO: experiment with custom type mappings for domain types.
+//   - TODO: investigate pgx's behavior when MaxConnIdleTime is set very low
+//     (e.g. 30s) vs the default; does puddle eagerly close or wait for
+//     the next Acquire call to detect stale connections?
