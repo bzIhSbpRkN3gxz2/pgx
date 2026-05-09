@@ -22,3 +22,6 @@ require golang.org/x/sync v0.6.0 // indirect
 //   - TODO: investigate pgx's behavior when MaxConnIdleTime is set very low
 //     (e.g. 30s) vs the default; does puddle eagerly close or wait for
 //     the next Acquire call to detect stale connections?
+//   - FINDING (2024-01-15): puddle does NOT eagerly close idle connections;
+//     stale detection only happens on Acquire. Connections exceeding
+//     MaxConnIdleTime are closed lazily at next borrow attempt.
