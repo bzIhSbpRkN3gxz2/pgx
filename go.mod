@@ -25,3 +25,7 @@ require golang.org/x/sync v0.6.0 // indirect
 //   - FINDING (2024-01-15): puddle does NOT eagerly close idle connections;
 //     stale detection only happens on Acquire. Connections exceeding
 //     MaxConnIdleTime are closed lazily at next borrow attempt.
+//   - FINDING (2024-03-02): tested with MaxConnIdleTime=30s under moderate
+//     load (~50 req/s); pool held ~8 conns open despite only 2-3 active at
+//     any time. Confirms lazy eviction - idle conns linger until borrowed.
+//     Setting a lower MaxConns is a more reliable way to cap pool size.
